@@ -1,0 +1,109 @@
+<div class="container">
+    <h2>Students Management</h2>
+    <table border="1" class="student-grid">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>First Name</th>
+          <th>CIN</th>
+          <th>School</th>
+          <th>Date of Birth</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{ student.idEtudiant }}</td>
+          <td>{{ student.nomEt }}</td>
+          <td>{{ student.prenomEt }}</td>
+          <td>{{ student.cin }}</td>
+          <td>{{ student.ecole }}</td>
+          <td>{{ student.dateNaissance }}</td>
+          <td>
+            <button (click)="editStudent(student)">Edit</button>
+            <button class="delete-btn" (click)="deleteStudent(student.idEtudiant)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Inline CSS -->
+  <style>
+    /* General Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: 'Arial', sans-serif;
+    }
+  
+    /* Table Styling */
+    .student-grid {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+    }
+  
+    /* Table Header */
+    .student-grid th {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  
+    /* Table Data Cells */
+    .student-grid td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+    }
+  
+    /* Table Row on Hover */
+    .student-grid tr:hover {
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+  
+    /* Button Styling */
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+  
+    /* Edit Button */
+    button:hover {
+      background-color: #0056b3;
+      color: white;
+    }
+  
+    /* Delete Button */
+    button.delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+  
+    button.delete-btn:hover {
+      background-color: #c82333;
+    }
+  
+    /* Title Styling */
+    h2 {
+      text-align: center;
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+  </style>
+  
