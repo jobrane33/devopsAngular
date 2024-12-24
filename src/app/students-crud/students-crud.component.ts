@@ -16,7 +16,7 @@ export class StudentsCrudComponent implements OnInit {
   }
 
   fetchStudents() {
-    this.http.get<any[]>('http://localhost:8086/Foyer/etudiant/findAll').subscribe(
+    this.http.get<any[]>('http://192.168.50.4:7070/Foyer/etudiant/findAll').subscribe(
       (data) => {
         this.students = data.map((student) => ({
           ...student,
@@ -34,7 +34,7 @@ export class StudentsCrudComponent implements OnInit {
   }
 
   deleteStudent(studentId: number) {
-    this.http.delete(`http://localhost:8086/Foyer/etudiant/deleteById/${studentId}`).subscribe(
+    this.http.delete(`http://192.168.50.4:7070/Foyer/etudiant/${studentId}`).subscribe(
       () => {
         console.log(`Student ${studentId} deleted successfully`);
         this.fetchStudents();
