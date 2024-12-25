@@ -26,8 +26,7 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' },
-        { type: 'lcov' }
+        { type: 'text-summary' }
       ]
     },
     reporters: ['progress', 'kjhtml'],
@@ -35,13 +34,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadlessNoSandbox'], // Use ChromeHeadlessNoSandbox for headless testing
-    customLaunchers: {
-      ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu']
-      }
-    },
+    browsers: ['ChromeHeadless'], // Use ChromeHeadless for headless testing
     singleRun: false,
     restartOnFileChange: true
   });
