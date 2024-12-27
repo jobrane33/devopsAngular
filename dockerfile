@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Step 4: Install Angular CLI globally (if not already installed)
+# Step 4: Install Angular CLI globally
 RUN npm install -g @angular/cli
 
 # Step 5: Copy the rest of the application files
