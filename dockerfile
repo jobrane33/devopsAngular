@@ -14,14 +14,14 @@ COPY . .
 # Step 5: Build the Angular application
 RUN npm run build -- --prod
 
-# Step 6: Verify the build output by listing files in the dist folder
-RUN ls -al /app/dist
+# Step 6: Verify the build output by listing files in the dist/devops-angular folder
+RUN ls -al /app/dist/devops-angular
 
 # Step 7: Use a smaller Nginx image to serve the built Angular app
 FROM nginx:alpine
 
 # Step 8: Copy the built Angular app to Nginx's public folder
-COPY --from=build /app/dist/devops-angular /usr/share/nginx/html
+COPY --from=build /app/dist/devops-angular/ /usr/share/nginx/html/
 
 # Step 9: Expose port 80
 EXPOSE 80
