@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: jobrane23/devopsfrontend:latest
+    container_name: frontend_container
+    ports:
+      - "8796:80"
+    restart: always
