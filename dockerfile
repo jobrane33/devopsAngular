@@ -10,6 +10,7 @@ RUN npm install
 
 # Step 4: Install Angular CLI globally
 RUN npm install -g @angular/cli
+RUN npm list -g @angular/cli
 
 # Step 5: Copy the rest of the application files
 COPY . .
