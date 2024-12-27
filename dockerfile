@@ -16,7 +16,7 @@ RUN npm list -g @angular/cli
 COPY . .
 
 # Step 6: Build the Angular application for production
-RUN ng build --configuration=production
+RUN node_modules/.bin/ng build --prod
 
 # Step 7: Verify the build output by listing files in the dist/devops-angular folder
 RUN ls -al /app/dist/devops-angular
