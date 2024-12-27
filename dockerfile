@@ -8,23 +8,26 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Step 4: Copy the rest of the application files
+# Step 4: Install Angular CLI globally (if not already installed)
+RUN npm install -g @angular/cli
+
+# Step 5: Copy the rest of the application files
 COPY . .
 
-# Step 5: Build the Angular application
-RUN npm run build -- --prod
+# Step 6: Build the Angular application for production
+RUN ng build --configuration=production
 
-# Step 6: Verify the build output by listing files in the dist/devops-angular folder
+# Step 7: Verify the build output by listing files in the dist/devops-angular folder
 RUN ls -al /app/dist/devops-angular
 
-# Step 7: Use a smaller Nginx image to serve the built Angular app
+# Step 8: Use a smaller Nginx image to serve the built Angular app
 FROM nginx:alpine
 
-# Step 8: Copy the built Angular app to Nginx's public folder
+# Step 9: Copy the built Angular app to Nginx's public folder
 COPY --from=build /app/dist/devops-angular/ /usr/share/nginx/html/
 
-# Step 9: Expose port 80
+# Step 10: Expose port 80
 EXPOSE 80
 
-# Step 10: Start Nginx server
+# Step 11: Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
