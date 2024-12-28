@@ -1,35 +1,31 @@
-# Step 1: Use an official Node.js image as the base image
-FROM node:18 AS build
+### STAGE 1: Build ###
+FROM node:lts-alpine AS build
 
-# Step 2: Set the working directory
-WORKDIR /app
+#### make the 'app' folder the current working directory
+WORKDIR /usr/src/app
 
-# Step 3: Copy package.json and install dependencies
+#### copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
+
+#### install angular cli
+RUN npm install -g @angular/cli
+
+#### install project dependencies
 RUN npm install
 
-# Step 4: Install Angular CLI globally
-RUN npm install -g @angular/cli
-RUN npm list -g @angular/cli
-
-# Step 5: Copy the rest of the application files
+#### copy things
 COPY . .
 
-# Step 6: Build the Angular application for production
- RUN node_modules/.bin/ng build --configuration production
+#### generate build --prod
+RUN npm run build --prod
 
-# Step 7: Verify the build output by listing files in the dist/devops-angular folder
-RUN ls -al /app/dist/devops-angular
+### STAGE 2: Run ###
+FROM nginxinc/nginx-unprivileged
 
-# Step 8: Use a smaller Nginx image to serve the built Angular app
-FROM nginx:alpine
+#### copy nginx conf
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
-# Step 9: Copy the built Angular app to Nginx's public folder
-COPY --from=build /app/dist/devops-angular/ /usr/share/nginx/html/
+#### copy artifact build from the 'build environment'
+COPY --from=build /usr/src/app/dist/devops-angular /usr/share/nginx/html
 
-# Step 10: Expose port 80
-EXPOSE 80
-
-# Step 11: Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
