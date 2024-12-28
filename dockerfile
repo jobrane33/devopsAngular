@@ -23,6 +23,7 @@ RUN ls -al /app/dist/devops-angular
 
 # Step 8: Use a smaller Nginx image to serve the built Angular app
 FROM nginx:alpine
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Step 9: Copy the built Angular app to Nginx's public folder
 COPY --from=build /app/dist/devops-angular/ /usr/share/nginx/html/
